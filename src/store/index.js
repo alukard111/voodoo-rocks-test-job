@@ -12,13 +12,13 @@ export default new Vuex.Store({
   },
   
   mutations: {
-    statePosts(state, posts) {
+    setPosts(state, posts) {
       state.allPosts = posts
     },
-    stateUsers(state, users) {
+    setUsers(state, users) {
       state.allUsers = users
     },
-    stateAddAuthorNamePosts(state) {
+    addAuthorNamePosts(state) {
       if (state.allPosts != null && state.allUsers != null) {
         state.allPosts.forEach(item => {
           item.authorName = state.allUsers.find(user => user.id === item.userId).name
@@ -32,7 +32,7 @@ export default new Vuex.Store({
       axios.get('https://jsonplaceholder.typicode.com/posts')
         .then(response => {
           if (response.status === 200) {
-            context.commit('statePosts', Object.assign(response.data))
+            context.commit('setPosts', Object.assign(response.data))
           }
         })
         .catch(error => {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       axios.get('https://jsonplaceholder.typicode.com/users')
         .then(response => {
           if (response.status === 200) {
-            context.commit('stateUsers', Object.assign(response.data))
+            context.commit('setUsers', Object.assign(response.data))
           }
         })
         .catch(error => {

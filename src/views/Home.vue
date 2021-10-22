@@ -35,7 +35,7 @@ export default {
   }),
 
 
-  mounted() {
+  beforeMount() {
     this.$store.dispatch('getAllUsers')
     this.$store.dispatch('getAllPosts')   
   },
@@ -57,13 +57,13 @@ export default {
 
     addAuthorNamePosts() {
       if (!this.$store.getters.allPosts.every(this.authorNameIsPresent)) {
-        return this.$store.commit('stateAddAuthorNamePosts')
+        return this.$store.commit('addAuthorNamePosts')
       }
     },
 
     getFilterPosts() {
-      if (Boolean(this.value)) {
-        return this.getPosts.filter(item =>  item.authorName.toLowerCase().includes(this.value))  
+      if (Boolean(this.value) && typeof(this.value) === 'string') {
+        return this.getPosts.filter(item =>  item.authorName.toLowerCase().includes(this.value.toLowerCase()))  
       }
       return this.getPosts
     }
